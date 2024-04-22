@@ -14,7 +14,7 @@
 class Server{
 private:
     boost::asio::io_context io_context;
-  //boost::asio::ip::tcp::endpoint endpnt(boost::asio::ip::address::from_string("127.0.0.1"), 8080); //???????
+  //boost::asio::ip::tcp::endpoint endpn{boost::asio::ip::address::from_string("127.0.0.1"), 8080; //???????
     boost::asio::ip::tcp::endpoint endpnt=boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 8080);
     std::list<boost::asio::ip::tcp::socket> sockets;
    
