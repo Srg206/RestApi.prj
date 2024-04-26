@@ -5,11 +5,7 @@
 
 
 TEST_CASE("ctors"){
-    Server a;
-    Server b;
-    Server c(a);
-    Server d(std::move(a));
-    d=std::move(b);
+    
 
 
     

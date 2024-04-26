@@ -11,4 +11,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO bin.relwithdbg)
 
 add_subdirectory(server)
 
+add_executable(main main.cpp)
+target_link_libraries(main server)
+
 
