@@ -1,6 +1,11 @@
 #include "server.hpp"
 
-namespace http = boost::beast::http;
+
+namespace beast = boost::beast;
+namespace http = beast::http;
+namespace net = boost::asio;
+using net::ip::tcp;
+using namespace std::string_literals;
 
 
 std::map<std::string, std::string> jsonToMap(const std::string& jsonString) {
@@ -58,20 +63,22 @@ bool Server::Init(std::filesystem::path path_to_configs)
 void Server::handleConnection(boost::asio::ip::tcp::socket &socket)
 {
     boost::asio::streambuf buffer;
-    size_t bytes=boost::asio::read_until(socket, buffer, "\n"); // Чтение до символа новой строки
-    boost::asio::read_until(socket, buffer, "\r\n\r\n"); // Чтение до символа новой строки
-    std::string message(boost::asio::buffers_begin(buffer.data()), boost::asio::buffers_end(buffer.data()));
-    //std::string new_msg(message.);
+    http::request<http::string_body> req;
 
-    for(int i=17;i<message.size();i++){
-        //new_msg.push_back(message[i]);
+    net::streambuf buf;
+    http::read(socket, buf, req);
+
+    //std::cout << "Method: " << req.method() << "\n";
+    //std::cout << "URL: " << req.target() << "\n";
+    for(auto it=req.begin(); it!=req.end(); it++){
+        std::cout<<(*it).value() <<std::endl;
     }
-    std::cout << "Received message: " << message << std::endl;
-    
-    //auto goten_msg=jsonToMap(new_msg);
-    //for (auto it = goten_msg.begin(); it != goten_msg.end(); ++it) {
-    //    std::cout << it->first<< std::endl;
-    //}
+    //auto it=req.begin();
+    //std::cout<<(*it).value() <<std::endl;
+   
+   
+
+    std::cout << "end of handle" << std::endl;
 
 }
 
@@ -95,7 +102,6 @@ void Server::Work()
         //std::thread newconnection(handleConnection, std::ref(socket));
 
         newconnection.join();
-        std::cout << "end of " << std::endl;
     }
 
     
