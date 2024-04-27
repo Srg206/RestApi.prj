@@ -5,6 +5,6 @@
 struct Courier{
     int district=0; 
     std::string schedule="";
-    std::string type;
+    std::string type="";
 };
 #endif

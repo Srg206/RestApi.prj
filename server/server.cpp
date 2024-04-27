@@ -58,52 +58,59 @@ bool Server::Init(std::filesystem::path path_to_configs)
 
 void Server::handleRequest(boost::asio::ip::tcp::socket &socket, const http::request<http::string_body> &req)
 {
-    std::cout << "hndlreq   " << req.method_string() << "   \n";
+    std::cout<<req.body();
+    std::string_view url(req.target().data(), req.target().size());
     if (req.method() == boost::beast::http::verb::get)
     {
-        std::cout << "send\n\n\n";
-        std::string h = "200\r\n"; // The status code is already finished with a '\r\n'
-        std::string t = "Date: hhhhh \r\n";
-        // std::string s = "Server: Muffin 1.0\r\n";
+        //std::cout << url << std::endl;
+        if (url.find("couriers/")!=-1)
+        {      
+            std::cout << "get_couriers/" << std::endl;
+        }
+        else if (url.find("orders/")!=-1)
+        {
+            std::cout << "get_orders/" << std::endl;
+        }
+        else if (url.find("couriers")!=-1)
+        {
+            std::cout << "get_couriers" << std::endl;
+        }
+        else if (url.find("orders")!=-1)
+        {
+            std::cout << "get_orders" << std::endl;
+        }
 
-        std::string const content = "<html><body><h1>Hello World</h1><p>This is a web server in c++</p></body></html><html><body><h1>Hello World</h1><p>This is a web server in c++</p></body></html>";
-        std::string type = "Content-Type: text/html\r\n";
-        std::string length = "Content-Length: " + std::to_string(content.size()) + "\r\n";
-        std::string res = h + t + length + type + "\r\n" + content + "\r\n";
+    }
+    if (req.method() == boost::beast::http::verb::post)
+    {
+        if (url.find("couriers")!=-1){
+            std::cout<<"post_couriers"<<std::endl;
+        }
+        else if (url.find("orders/complete")!=-1){
+            std::cout<<"post_orders/complete"<<std::endl;
+        }
+        else if (url.find("orders")!=-1){
+            std::cout<<"post_orders"<<std::endl;
+        }
+
+    }
+        std::string const content = ">";
 
         http::response<http::string_body> respn{http::status::ok, 11};
         respn.set(http::field::server, "Boost Beast Server");
         respn.set(http::field::content_type, "text/html");
         respn.body() = content;
         respn.prepare_payload();
-
         http::write(socket, respn);
-
-        // http::write(socket, boost::asio::buffer("HTTP/1.1 200 OK\nContent-Type: text/html\n"));
-    }
-    if (req.method() == boost::beast::http::verb::post)
-    {
-        net::write(socket, boost::asio::buffer("\n POST 200 \n"));
-    }
 }
 void Server::handleConnection(boost::asio::ip::tcp::socket &socket)
 {
     boost::asio::streambuf buffer;
     http::request<http::string_body> req;
-
     net::streambuf buf;
     http::read(socket, buf, req);
-
-    std::cout << "Method: " << req.method() << "\n";
     handleRequest(socket, req);
-    // std::cout << "URL: " << req.target() << "\n";
-    // for(auto it=req.begin(); it!=req.end(); it++){
-    //     std::cout<<(*it).value() <<std::endl;
-    // }
-    // auto it=req.begin();
-    // std::cout<<(*it).value() <<std::endl;
-
-    std::cout << "end of handle" << std::endl;
+    req.clear();
 }
 
 void Server::Work()

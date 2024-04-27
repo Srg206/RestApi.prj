@@ -6,7 +6,10 @@
 
 
 
-int post_couriers(std::vector<Courier>);
+int post_couriers(std::vector<Courier> couriers_to_post);
+int get_couriers_id();
+int get_couriers();
+
 
 
 #endif

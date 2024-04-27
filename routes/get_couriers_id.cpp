@@ -1,9 +1,9 @@
 #include"All_routes.hpp"
 
 
-int post_couriers(std::vector<Courier>){
+
+int get_couriers_id(){
 
     return 200;
 }
-
 

@@ -1,4 +1,4 @@
-add_library(All_routes All_routes.hpp post_couriers.cpp)
+add_library(All_routes All_routes.hpp post_couriers.cpp get_couriers.cpp get_couriers_id.cpp)
 set_property(TARGET All_routes PROPERTY CXX_STANDARD 20)
 target_include_directories(All_routes PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
