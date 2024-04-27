@@ -10,6 +10,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE bin.rel)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO bin.relwithdbg)
 
 add_subdirectory(server)
+add_subdirectory(courier)
+add_subdirectory(routes)
+
+
 
 add_executable(main main.cpp)
 target_link_libraries(main server)

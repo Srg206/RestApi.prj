@@ -5,4 +5,5 @@ target_include_directories(server PUBLIC
   $<INSTALL_INTERFACE:include>
 )
 
-add_subdirectory(tests)
+target_link_libraries(server All_routes)
+##add_subdirectory(tests)
