@@ -62,21 +62,22 @@ void Server::handleRequest(boost::asio::ip::tcp::socket &socket, const http::req
     std::string_view url(req.target().data(), req.target().size());
     if (req.method() == boost::beast::http::verb::get)
     {
+        nlohmann::json second = nlohmann::json::parse(req.body());
         //std::cout << url << std::endl;
-        if (url.find("couriers/")!=-1)
-        {      
+        if (url.find("couriers/")!=-1){      
+            get_couriers_id(url);
             std::cout << "get_couriers/" << std::endl;
         }
-        else if (url.find("orders/")!=-1)
-        {
+        else if (url.find("orders/")!=-1){
+            get_orders_id(url);
             std::cout << "get_orders/" << std::endl;
         }
-        else if (url.find("couriers")!=-1)
-        {
+        else if (url.find("couriers")!=-1){
+            get_couriers(url);
             std::cout << "get_couriers" << std::endl;
         }
-        else if (url.find("orders")!=-1)
-        {
+        else if (url.find("orders")!=-1){
+            get_orders(url);
             std::cout << "get_orders" << std::endl;
         }
 
@@ -84,12 +85,15 @@ void Server::handleRequest(boost::asio::ip::tcp::socket &socket, const http::req
     if (req.method() == boost::beast::http::verb::post)
     {
         if (url.find("couriers")!=-1){
+            post_couriers(req.body());
             std::cout<<"post_couriers"<<std::endl;
         }
         else if (url.find("orders/complete")!=-1){
+            post_orders_complete(req.body());
             std::cout<<"post_orders/complete"<<std::endl;
         }
         else if (url.find("orders")!=-1){
+            post_orders(req.body());
             std::cout<<"post_orders"<<std::endl;
         }
 

@@ -11,6 +11,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO bin.relwithdbg)
 
 add_subdirectory(server)
 add_subdirectory(courier)
+add_subdirectory(order)
 add_subdirectory(routes)
 
 
