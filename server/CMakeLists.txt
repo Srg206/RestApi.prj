@@ -4,6 +4,8 @@ target_include_directories(server PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
   $<INSTALL_INTERFACE:include>
 )
-
+if(CMAKE_SYSTEM MATCHES Windows)
+target_link_libraries(server PRIVATE All_routes  nlohmann_json::nlohmann_json)
+else()
 target_link_libraries(server All_routes)
-##add_subdirectory(tests)
+endif()
