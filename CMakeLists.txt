@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.20)
 set(CMAKE_CXX_STANDARD 20)
 
+if(CMAKE_SYSTEM MATCHES Windows)
 set(CMAKE_TOOLCHAIN_FILE C:/src/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING "Vcpkg toolchain file")
-
+endif()
 project(server)
 
 if(CMAKE_SYSTEM MATCHES Windows)
