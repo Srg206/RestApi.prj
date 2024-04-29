@@ -8,7 +8,7 @@ int main()
 {
     //Server a("127.0.0.1", 8000);
     //a.Work();
-    std::ofstream f("fake_db");
+    std::ofstream f("fake_db.txt");
     std::cout<<f.is_open()<<"nnnnnnnn";
     f<<"mmvmvmmvd";
 
