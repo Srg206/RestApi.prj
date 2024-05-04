@@ -1,25 +1,25 @@
 #include "server.hpp"
 
-std::map<std::string, std::string> jsonToMap(const std::string &jsonString)
-{
-    std::map<std::string, std::string> result;
-    try
-    {
-        auto j = nlohmann::json::parse(jsonString);
-        for (nlohmann::json::iterator it = j.begin(); it != j.end(); ++it)
-        {
-            if (it.value().is_string())
-            {
-                result[it.key()] = it.value();
-            }
-        }
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << "Error parsing JSON: " << e.what() << std::endl;
-    }
-    return result;
-}
+// std::map<std::string, std::string> jsonToMap(const std::string &jsonString)
+// {
+//     std::map<std::string, std::string> result;
+//     try
+//     {
+//         auto j = nlohmann::json::parse(jsonString);
+//         for (nlohmann::json::iterator it = j.begin(); it != j.end(); ++it)
+//         {
+//             if (it.value().is_string())
+//             {
+//                 result[it.key()] = it.value();
+//             }
+//         }
+//     }
+//     catch (const std::exception &e)
+//     {
+//         std::cerr << "Error parsing JSON: " << e.what() << std::endl;
+//     }
+//     return result;
+// }
 
 Server::Server(std::string ip_adr, int port)
 {
@@ -58,7 +58,6 @@ bool Server::Init(std::filesystem::path path_to_configs)
 
 void Server::handleRequest(boost::asio::ip::tcp::socket &socket, const http::request<http::string_body> &req)
 {
-    std::cout<<req.body();
     std::string_view url(req.target().data(), req.target().size());
     if (req.method() == boost::beast::http::verb::get)
     {
@@ -69,16 +68,16 @@ void Server::handleRequest(boost::asio::ip::tcp::socket &socket, const http::req
             std::cout << "get_couriers/" << std::endl;
         }
         else if (url.find("orders/")!=-1){
-            get_orders_id(url);
-            std::cout << "get_orders/" << std::endl;
+            
+            std::cout << get_orders_id(url) << std::endl;
         }
         else if (url.find("couriers")!=-1){
             get_couriers(url);
             std::cout << "get_couriers" << std::endl;
         }
         else if (url.find("orders")!=-1){
-            get_orders(url);
-            std::cout << "get_orders" << std::endl;
+            std::vector<Order> all_orders=get_orders(url);
+            std::cout << *all_orders.begin() << all_orders[std::ssize(all_orders)-1]<< std::endl;
         }
 
     }
@@ -98,8 +97,8 @@ void Server::handleRequest(boost::asio::ip::tcp::socket &socket, const http::req
         }
 
     }
-        std::string const content = ">";
 
+        std::string content = std::to_string(socket.remote_endpoint().port());
         http::response<http::string_body> respn{http::status::ok, 11};
         respn.set(http::field::server, "Boost Beast Server");
         respn.set(http::field::content_type, "text/html");
@@ -122,6 +121,8 @@ void Server::Work()
 
     boost::asio::io_context io_context;
     boost::asio::ip::tcp::acceptor acceptor(io_context, endpnt);
+    int chunk_of_connections=12;
+    int now_connected=0;
     while (true)
     {
         boost::asio::ip::tcp::socket socket(io_context);
@@ -132,7 +133,8 @@ void Server::Work()
 
         // std::this_thread::sleep_for(std::chrono::milliseconds(5000));
         std::cout << "Got connection from: " << socket.remote_endpoint() << std::endl;
-
+        now_connected++;
+        //if()
         std::thread newconnection([this, &socket]()
                                   { this->handleConnection(socket); });
         // std::thread newconnection(handleConnection, std::ref(socket));

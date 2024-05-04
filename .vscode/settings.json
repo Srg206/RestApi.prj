@@ -74,6 +74,20 @@
         "forward_list": "cpp",
         "unordered_set": "cpp",
         "fstream": "cpp",
-        "valarray": "cpp"
-    }
+        "valarray": "cpp",
+        "ranges": "cpp",
+        "shared_mutex": "cpp"
+    },
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "test",
+            "database": "test_db",
+            "username": "user"
+        }
+    ]
 }
