@@ -1,0 +1,4 @@
+libboost-dev libboost-program-options-dev
+libgtest-dev
+cmake
+nlohmann-json-dev

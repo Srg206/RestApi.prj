@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 3.20)
 set(CMAKE_CXX_STANDARD 20)
 
+
+#find_package(PQXX REQUIRED)
+# find_package(libpq REQUIRED)
+# find_package(PostgreSQL REQUIRED)
+# include_directories(${PQXX_INCLUDE_DIRS})
+# include_directories(${PostgreSQL_INCLUDE_DIRS})
+
+
 if(CMAKE_SYSTEM MATCHES Windows)
 set(CMAKE_TOOLCHAIN_FILE C:/src/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING "Vcpkg toolchain file")
 endif()

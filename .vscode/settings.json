@@ -76,7 +76,8 @@
         "fstream": "cpp",
         "valarray": "cpp",
         "ranges": "cpp",
-        "shared_mutex": "cpp"
+        "shared_mutex": "cpp",
+        "pqxx": "cpp"
     },
     "sqltools.connections": [
         {
