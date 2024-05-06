@@ -10,6 +10,7 @@ std::ofstream& operator<<( std::ofstream &f,const Order& ord){
 
 std::ifstream &operator>>(std::ifstream &f,Order &ord){
     f>>ord.my_id>>ord.weight>>ord.district>>ord.time;
+    return f;
 }
 
 std::ostream &operator<<(std::ostream &o, const Order &ord)

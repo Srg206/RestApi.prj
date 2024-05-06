@@ -11,6 +11,7 @@ std::ofstream& operator<<(std::ofstream &f, const Courier & c){
 std::ifstream &operator>>(std::ifstream &f,Courier &c){
 
     f>>c.my_id>>c.district>>c.schedule>>c.type;
+    return f;
 }
 
 std::ostream &operator<<(std::ostream &o, const Courier &c)
