@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 20)
 # find_package(PostgreSQL REQUIRED)
 # include_directories(${PQXX_INCLUDE_DIRS})
 # include_directories(${PostgreSQL_INCLUDE_DIRS})
+#find_package(libpqxx REQUIRED)
 
 
 if(CMAKE_SYSTEM MATCHES Windows)
