@@ -6,8 +6,6 @@ target_include_directories(All_routes PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
   $<INSTALL_INTERFACE:include>
 )
-if(CMAKE_SYSTEM MATCHES Windows)
-target_link_libraries(All_routes PRIVATE courier order nlohmann_json::nlohmann_json)
-else()
-target_link_libraries(All_routes courier order)
-endif()
+find_package(nlohmann_json REQUIRED)
+
+target_link_libraries(All_routes courier order nlohmann_json::nlohmann_json)

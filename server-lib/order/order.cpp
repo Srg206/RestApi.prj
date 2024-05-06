@@ -1,5 +1,6 @@
 #include "order.hpp"
 
+int Order::id=0;
 
 
 std::ofstream& operator<<( std::ofstream &f,const Order& ord){

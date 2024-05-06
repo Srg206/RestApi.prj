@@ -14,7 +14,6 @@ struct Courier{
     Courier(int d, std::string s, std::string t);
 
 };
-//int Courier::id=0;
 std::ofstream& operator<<( std::ofstream &f, const Courier & c);
 std::ifstream& operator>>( std::ifstream &f,Courier & c);
 

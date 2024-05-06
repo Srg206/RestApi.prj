@@ -1,5 +1,8 @@
 #include "courier.hpp"
 
+
+int Courier::id=0;
+
 std::ofstream& operator<<(std::ofstream &f, const Courier & c){
     f<<c.my_id<< " "<<c.district<<" "<<c.schedule<<" "<<c.type<<"\n";
     return f;
