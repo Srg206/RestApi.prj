@@ -9,6 +9,8 @@
 
 #include <fstream>
 #include<string_view>
+#include <pqxx/pqxx> 
+using namespace pqxx;
 
 
 

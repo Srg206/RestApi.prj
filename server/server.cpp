@@ -77,12 +77,13 @@ void Server::handleRequest(boost::asio::ip::tcp::socket &socket, const http::req
         }
         else if (url.find("orders")!=-1){
             std::vector<Order> all_orders=get_orders(url);
-            std::cout << *all_orders.begin() << all_orders[std::ssize(all_orders)-1]<< std::endl;
+            //std::cout << *all_orders.begin() << all_orders[10]<< std::endl;
         }
 
     }
     if (req.method() == boost::beast::http::verb::post)
     {
+        //std::cout << url << std::endl;
         if (url.find("couriers")!=-1){
             post_couriers(req.body());
             std::cout<<"post_couriers"<<std::endl;

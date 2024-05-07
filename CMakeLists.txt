@@ -12,8 +12,6 @@ project(server)
 
 #find_package(PostgreSQL REQUIRED)
 #find_package(libpqxx REQUIRED)
-find_package(PkgConfig)
-pkg_search_module(PQXX REQUIRED libpqxx)
 
 
 find_package(nlohmann_json REQUIRED)
@@ -44,6 +42,6 @@ add_executable(main main.cpp)
 # )
 
 
-target_link_libraries(main PRIVATE server ${PQXX_LINK_LIBRARIES} )
+target_link_libraries(main PRIVATE server )
 
 

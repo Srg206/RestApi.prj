@@ -6,6 +6,11 @@ target_include_directories(All_routes PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
   $<INSTALL_INTERFACE:include>
 )
+
+find_package(PkgConfig)
+pkg_search_module(PQXX REQUIRED libpqxx)
+
+
 find_package(nlohmann_json REQUIRED)
 
-target_link_libraries(All_routes courier order nlohmann_json::nlohmann_json)
+target_link_libraries(All_routes courier order nlohmann_json::nlohmann_json ${PQXX_LINK_LIBRARIES} )

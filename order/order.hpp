@@ -10,6 +10,7 @@ struct Order{
     int weight=0;
     int district=0; 
     std::string time="";
+    bool IsReady=false;
     Order()=default;
     Order(int w, int d, std::string t);
 };
