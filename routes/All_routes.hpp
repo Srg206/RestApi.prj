@@ -10,13 +10,15 @@
 #include <fstream>
 #include<string_view>
 #include <pqxx/pqxx> 
+#include <iostream>
+
 using namespace pqxx;
 
 
 
-int post_couriers(nlohmann::json arr);
-int post_orders(std::string arr);
-int post_orders_complete(nlohmann::json arr);
+int post_couriers(std::string json_string);
+int post_orders(std::string json_string);
+int post_orders_complete(std::string json_string);
 
 
 Courier get_couriers_id(std::string_view  url);

@@ -1,10 +1,9 @@
 #include "All_routes.hpp"
-#include <iostream>
 
 std::vector<Order> get_orders(std::string_view url)
 {
     std::vector<Order> res;
-    connection C{"postgres://user:user123@172.16.63.8:5432/test-db"}; //"postgresql://user:password@localhost/dbname"
+    connection C{"postgres://user:user123@10.54.65.132:5432/test-db"}; //"postgresql://user:password@localhost/dbname"
     work W(C);
     std::string query = "";
 
@@ -19,10 +18,10 @@ std::vector<Order> get_orders(std::string_view url)
         new_ord.district=it.at("district").as<int>();
         new_ord.time=it.at("time").as<std::string>();
         new_ord.IsReady=it.at("isready").as<bool>();
-
+        res.push_back(new_ord);
         std::cout<<new_ord<<std::endl;
     }
 
     C.disconnect();
-    return res;
+    return res; 
 }

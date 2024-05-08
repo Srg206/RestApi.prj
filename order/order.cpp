@@ -27,7 +27,11 @@ std::istream &operator>>(std::istream &i, Order &ord)
 }
 
 Order::Order(int w, int d, std::string t):
-weight(w), district(d), time(t)
+weight(w),district(d),time(t)
+{
+}
+
+Order::Order(int id, int w, int d, std::string t) : my_id(id), weight(w), district(d), time(t)
 {
     my_id=id++;
 }

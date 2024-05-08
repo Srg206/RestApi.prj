@@ -89,8 +89,8 @@ void Server::handleRequest(boost::asio::ip::tcp::socket &socket, const http::req
             std::cout<<"post_couriers"<<std::endl;
         }
         else if (url.find("orders/complete")!=-1){
-            post_orders_complete(req.body());
             std::cout<<"post_orders/complete"<<std::endl;
+            post_orders_complete(req.body());
         }
         else if (url.find("orders")!=-1){
             post_orders(req.body());

@@ -13,6 +13,7 @@ struct Order{
     bool IsReady=false;
     Order()=default;
     Order(int w, int d, std::string t);
+    Order(int id,int w, int d, std::string t);
 };
 
 std::ofstream& operator<<( std::ofstream &f,const Order& ord );

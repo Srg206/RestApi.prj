@@ -8,10 +8,11 @@ struct Courier{
     static int id;
     int my_id;
     int district=0; 
-    std::string schedule="";
+    std::string time="";
     std::string type="";
     Courier()=default;
     Courier(int d, std::string s, std::string t);
+    Courier(int id, int d, std::string s, std::string t);
 
 };
 std::ofstream& operator<<( std::ofstream &f, const Courier & c);
