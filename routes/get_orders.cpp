@@ -3,7 +3,7 @@
 std::vector<Order> get_orders(std::string_view url)
 {
     std::vector<Order> res;
-    connection C{"postgres://user:user123@10.54.65.132:5432/test-db"}; //"postgresql://user:password@localhost/dbname"
+    connection C{"postgres://user:user123@172.16.63.8:5432/test-db"}; //"postgresql://user:password@localhost/dbname"
     work W(C);
     std::string query = "";
 

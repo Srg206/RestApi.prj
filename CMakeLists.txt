@@ -16,6 +16,8 @@ project(server)
 
 find_package(nlohmann_json REQUIRED)
 find_package(Boost REQUIRED)
+find_package(PkgConfig)
+pkg_search_module(PQXX REQUIRED libpqxx)
 
 
 
@@ -32,6 +34,16 @@ add_subdirectory(courier)
 add_subdirectory(order)
 add_subdirectory(routes)
 
+add_library(connect_to_bd INTERFACE connect_to_bd.hpp)
+
+target_compile_features(connect_to_bd INTERFACE cxx_std_20)
+
+#target_include_directories(connect_to_bd PUBLIC
+#  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
+#  $<INSTALL_INTERFACE:include>
+#)
+target_link_libraries(connect_to_bd INTERFACE ${PQXX_LINK_LIBRARIES})
+#target_link_libraries(serverlib PRIVATE server  )
 
 add_executable(main main.cpp)
 # add_library(serverlib server.cpp server.hpp)

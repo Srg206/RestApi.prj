@@ -6,7 +6,7 @@
 // int Order::id=0;
 int post_orders(std::string json_string)
 {
-    connection C{"postgres://user:user123@10.54.65.132:5432/test-db"}; //"postgresql://user:password@localhost/dbname"
+    connection C{"postgres://user:user123@172.16.63.8:5432/test-db"}; //"postgresql://user:password@localhost/dbname"
     work W(C);
     nlohmann::json arr = nlohmann::json::parse(json_string);
     std::vector<Order> vec;
