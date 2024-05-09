@@ -4,5 +4,11 @@ target_include_directories(server PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
   $<INSTALL_INTERFACE:include>
 )
-target_link_libraries(server All_routes )
+
+
+
+find_package(PkgConfig)
+pkg_search_module(PQXX REQUIRED libpqxx)
+
+target_link_libraries(server All_routes ${PQXX_LINK_LIBRARIES} )
 #target_link_libraries(serverlib PRIVATE server ${PQXX_LINK_LIBRARIES} )

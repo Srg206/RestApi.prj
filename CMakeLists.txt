@@ -24,7 +24,7 @@ pkg_search_module(PQXX REQUIRED libpqxx)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "cmake")
 
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG bin.dbg)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE bin.rel)
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO bin.relwithdbg)
@@ -34,15 +34,12 @@ add_subdirectory(courier)
 add_subdirectory(order)
 add_subdirectory(routes)
 
-add_library(connect_to_bd INTERFACE connect_to_bd.hpp)
 
-target_compile_features(connect_to_bd INTERFACE cxx_std_20)
 
 #target_include_directories(connect_to_bd PUBLIC
 #  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
 #  $<INSTALL_INTERFACE:include>
 #)
-target_link_libraries(connect_to_bd INTERFACE ${PQXX_LINK_LIBRARIES})
 #target_link_libraries(serverlib PRIVATE server  )
 
 add_executable(main main.cpp)

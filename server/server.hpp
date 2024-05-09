@@ -11,7 +11,11 @@
 #include <mutex>
 #include <routes/All_routes.hpp>
 #include<string_view>
+#include <pqxx/pqxx> 
+#include <regex>
 
+
+using namespace pqxx;
 namespace beast = boost::beast;
 namespace http = beast::http;
 namespace net = boost::asio;
@@ -20,8 +24,9 @@ using namespace std::string_literals;
 
 
 
+std::string ReplaceAll(const std::string& inputStr, const std::string& src, const std::string& dst);
+std::string get_configs();
 
-//std::map<std::string, std::string> jsonToMap(const std::string& jsonString);
 class Server{
 private:
     boost::asio::ip::tcp::endpoint endpnt = boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 8000);

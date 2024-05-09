@@ -5,27 +5,25 @@
 #include<order/order.hpp>
 #include<vector>
 #include <nlohmann/json.hpp>
-//#include "json.hpp"
 
 #include <fstream>
 #include<string_view>
-#include <pqxx/pqxx> 
 #include <iostream>
 
+#include <pqxx/pqxx> 
 using namespace pqxx;
 
 
+int post_couriers(std::string json_string, std::string configs);
+int post_orders(std::string json_string, std::string configs);
+int post_orders_complete(std::string json_string, std::string configs);
 
-int post_couriers(std::string json_string);
-int post_orders(std::string json_string);
-int post_orders_complete(std::string json_string);
 
+Courier get_couriers_id(std::string_view  url, std::string configs);
+std::vector<Courier> get_couriers(std::string_view  url, std::string configs);
 
-Courier get_couriers_id(std::string_view  url);
-std::vector<Courier> get_couriers(std::string_view  url);
-
-Order get_orders_id(std::string_view  url);
-std::vector<Order> get_orders(std::string_view url);
+Order get_orders_id(std::string_view  url, std::string configs);
+std::vector<Order> get_orders(std::string_view url, std::string configs);
 
 
 

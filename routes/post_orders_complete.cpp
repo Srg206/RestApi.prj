@@ -1,17 +1,16 @@
 #include "All_routes.hpp"
 
-int post_orders_complete(std::string json_string)
+int post_orders_complete(std::string json_string, std::string configs)
 {
+    connection C(configs);
+    work W(C);
     nlohmann::json arr = nlohmann::json::parse(json_string);
     std::vector<int> ids = arr.get<std::vector<int>>();
-    connection C{"postgres://user:user123@172.16.63.8:5432/test-db"}; //"postgresql://user:password@localhost/dbname"
-
-    work W(C);
     try
     {
-        if (C.is_open())
+        if (W.conn().is_open())
         {
-            std::cout << "Opened database successfully: " << C.dbname() << std::endl;
+            std::cout << "Opened database successfully: " << W.conn().dbname() << std::endl;
         }
         else
         {
@@ -27,7 +26,7 @@ int post_orders_complete(std::string json_string)
             std::string query = "UPDATE \"order\" SET isready=true WHERE id = current_id;";
             int start = query.find("current_id");
             query.replace(start, 10, std::to_string(x));
-            std::cout<<query;
+            std::cout << query;
             W.exec(query);
         }
         W.commit();
@@ -38,6 +37,6 @@ int post_orders_complete(std::string json_string)
         return 1;
     }
 
-    C.disconnect();
+    W.conn().disconnect();
     return 0;
 }

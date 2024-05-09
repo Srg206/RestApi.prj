@@ -9,8 +9,9 @@ target_include_directories(All_routes PUBLIC
 
 find_package(PkgConfig)
 pkg_search_module(PQXX REQUIRED libpqxx)
-
-
 find_package(nlohmann_json REQUIRED)
+find_package(Boost REQUIRED)
 
-target_link_libraries(All_routes courier order nlohmann_json::nlohmann_json ${PQXX_LINK_LIBRARIES} )
+#target_compile_features(All_routes cxx_std_20)
+
+target_link_libraries(All_routes  courier order nlohmann_json::nlohmann_json ${PQXX_LINK_LIBRARIES})

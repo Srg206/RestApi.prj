@@ -77,7 +77,8 @@
         "valarray": "cpp",
         "ranges": "cpp",
         "shared_mutex": "cpp",
-        "pqxx": "cpp"
+        "pqxx": "cpp",
+        "regex": "cpp"
     },
     "sqltools.connections": [
         {

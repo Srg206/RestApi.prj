@@ -1,14 +1,15 @@
 #include "All_routes.hpp"
 
-Courier get_couriers_id(std::string_view url)
+Courier get_couriers_id(std::string_view url, std::string configs)
 {
-    std::cout<<"\n\n"<<url.data()<<"\n\n"; 
-    std::string s(url.data() +10);
-    std::cout<<s;
+    connection C(configs);
+    work W(C);
+    std::cout << "\n\n"
+              << url.data() << "\n\n";
+    std::string tmp(url);
+    std::string s=tmp.replace(0,10,"");
     int gotten_id = std::stoi(s);
 
-    connection C{"postgres://user:user123@172.16.63.8:5432/test-db"}; //"postgresql://user:password@localhost/dbname"
-    work W(C);
     std::string query = "SELECT * FROM \"courier\" WHERE id = 5;";
 
     int start = query.find("5");
@@ -27,7 +28,7 @@ Courier get_couriers_id(std::string_view url)
     new_courier.time = it.at("time").as<std::string>();
     new_courier.type = it.at("type").as<std::string>();
 
-    std::cout<<new_courier<<std::endl;
-    C.disconnect();
+    std::cout << new_courier << std::endl;
+    W.conn().disconnect();
     return new_courier;
 }

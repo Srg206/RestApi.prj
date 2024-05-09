@@ -11,12 +11,12 @@ RUN apt-get update && apt-get install -y nano
 # Копируем исходный код внутрь контейнера
 COPY courier ./courier
 COPY order ./order
-COPY resources ./resources
 COPY routes ./routes
 COPY server ./server
 COPY main.cpp .
 COPY CMakeLists.txt .
 COPY requirments.txt .
+
 
 #RUN apt-get update && \
 #    apt-get install -y libboost-dev libboost-program-options-dev \ cmake \ nlohmann-json-dev

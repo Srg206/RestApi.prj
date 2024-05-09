@@ -4,9 +4,9 @@
 #include "All_routes.hpp"
 
 // int Order::id=0;
-int post_orders(std::string json_string)
+int post_orders(std::string json_string, std::string configs)
 {
-    connection C{"postgres://user:user123@172.16.63.8:5432/test-db"}; //"postgresql://user:password@localhost/dbname"
+    connection C(configs);
     work W(C);
     nlohmann::json arr = nlohmann::json::parse(json_string);
     std::vector<Order> vec;
@@ -20,9 +20,9 @@ int post_orders(std::string json_string)
     std::cout << "Working post orders" << std::endl;
     try
     {
-        if (C.is_open())
+        if (W.conn().is_open())
         {
-            std::cout << "Opened database successfully: " << C.dbname() << std::endl;
+            std::cout << "Opened database successfully: " << W.conn().dbname() << std::endl;
         }
         else
         {
@@ -61,7 +61,7 @@ int post_orders(std::string json_string)
         return 1;
     }
 
-    C.disconnect();
+    W.conn().disconnect();
     return 0;
 }
 #endif

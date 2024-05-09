@@ -1,9 +1,10 @@
-#include"All_routes.hpp"
+#include "All_routes.hpp"
 
-//int Courier::id=0;
+// int Courier::id=0;
 
-int post_couriers(std::string json_string){
-    connection C{"postgres://user:user123@172.16.63.8:5432/test-db"}; //"postgresql://user:password@localhost/dbname"
+int post_couriers(std::string json_string, std::string configs)
+{
+    connection C(configs);
     work W(C);
     nlohmann::json arr = nlohmann::json::parse(json_string);
     std::vector<Courier> vec;
@@ -11,15 +12,15 @@ int post_couriers(std::string json_string){
     {
         int d = (*it)["district"];
         std::string t = (*it)["time"];
-        std::string type=(*it)["type"];
+        std::string type = (*it)["type"];
         vec.push_back(Courier(d, t, type));
     }
     std::cout << "Working post orders" << std::endl;
     try
     {
-        if (C.is_open())
+        if (W.conn().is_open())
         {
-            std::cout << "Opened database successfully: " << C.dbname() << std::endl;
+            std::cout << "Opened database successfully: " << W.conn().dbname() << std::endl;
         }
         else
         {
@@ -58,10 +59,8 @@ int post_couriers(std::string json_string){
         return 1;
     }
 
-    C.disconnect();
+    W.conn().disconnect();
     return 0;
-
 
     return 200;
 }
-
