@@ -29,6 +29,6 @@ Courier get_couriers_id(std::string_view url, std::string configs)
     new_courier.type = it.at("type").as<std::string>();
 
     std::cout << new_courier << std::endl;
-    W.conn().disconnect();
+   // W.conn().disconnect();
     return new_courier;
 }

@@ -22,8 +22,8 @@ std::vector<Courier> get_couriers(std::string_view url, std::string configs)
         res.push_back(new_courier);
         std::cout << new_courier << std::endl;
     }
-
-    W.conn().disconnect();
+    
+    //W.conn().disconnect();
 
     return res;
 }

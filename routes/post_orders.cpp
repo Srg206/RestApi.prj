@@ -61,7 +61,7 @@ int post_orders(std::string json_string, std::string configs)
         return 1;
     }
 
-    W.conn().disconnect();
+  //  W.conn().disconnect();
     return 0;
 }
 #endif

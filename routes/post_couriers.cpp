@@ -59,7 +59,7 @@ int post_couriers(std::string json_string, std::string configs)
         return 1;
     }
 
-    W.conn().disconnect();
+    //W.conn().disconnect();
     return 0;
 
     return 200;

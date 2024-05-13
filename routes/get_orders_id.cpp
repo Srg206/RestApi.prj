@@ -26,6 +26,6 @@ Order get_orders_id(std::string_view url, std::string configs)
     new_ord.district = it.at("district").as<int>();
     new_ord.time = it.at("time").as<std::string>();
     new_ord.IsReady = it.at("isready").as<bool>();
-    W.conn().disconnect();
+    //W.conn().disconnect();
     return new_ord;
 }

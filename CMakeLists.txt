@@ -17,8 +17,8 @@ find_package(nlohmann_json REQUIRED)
 #find_package(Boost REQUIRED COMPONENTS system thread)
 
 
-find_package(PkgConfig)
-pkg_search_module(PQXX REQUIRED libpqxx)
+#find_package(PkgConfig)
+#pkg_search_module(PQXX REQUIRED libpqxx)
 
 
 

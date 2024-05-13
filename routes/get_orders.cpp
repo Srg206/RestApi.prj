@@ -23,7 +23,5 @@ std::vector<Order> get_orders(std::string_view url, std::string configs)
         res.push_back(new_ord);
         std::cout << new_ord << std::endl;
     }
-
-    W.conn().disconnect();
     return res;
 }
