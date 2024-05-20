@@ -2,31 +2,32 @@
 
 // int Courier::id=0;
 
-int post_couriers(std::string json_string, std::string configs)
+http::status post_couriers(std::string json_string, std::string configs)
 {
-    connection C(configs);
-    work W(C);
-    nlohmann::json arr = nlohmann::json::parse(json_string);
+    nlohmann::json arr;
     std::vector<Courier> vec;
-    for (auto it = arr.begin(); it != arr.end(); it++)
-    {
-        int d = (*it)["district"];
-        std::string t = (*it)["time"];
-        std::string type = (*it)["type"];
-        vec.push_back(Courier(d, t, type));
-    }
-    std::cout << "Working post orders" << std::endl;
     try
     {
-        if (W.conn().is_open())
+        arr = nlohmann::json::parse(json_string);
+        for (auto it = arr.begin(); it != arr.end(); it++)
         {
-            std::cout << "Opened database successfully: " << W.conn().dbname() << std::endl;
+            int d = (*it)["district"];
+            std::string t = (*it)["time"];
+            std::string type = (*it)["type"];
+            vec.push_back(Courier(d, t, type));
         }
-        else
-        {
-            std::cout << "Can't open database" << std::endl;
-            return 1;
-        }
+    }
+    catch (std::exception &ex)
+    {
+        std::cout << ex.what() << std::endl;
+        return http::status::unprocessable_entity;
+    }
+    try
+    {
+
+        connection C(configs);
+        work W(C);
+
         for (auto x : vec)
         {
             std::string query = "INSERT INTO \"courier\" (district, time, type) VALUES (your_district_value, \'your_time_value\' , \'your_type_value\');";
@@ -40,27 +41,15 @@ int post_couriers(std::string json_string, std::string configs)
             query.replace(start, 15, x.time);
 
             std::cout << query << std::endl;
-            try
-            {
-                W.exec(query);
-                std::cout << "you`ve succefully added new note\n";
-            }
-            catch (const std::exception &exc)
-            {
-                std::cerr << exc.what() << std::endl;
-                return 1;
-            }
+            W.exec(query);
+            std::cout << "you`ve succefully added new note\n";
         }
         W.commit();
     }
-    catch (const std::exception &e)
+    catch (std::exception &ex)
     {
-        std::cerr << e.what() << std::endl;
-        return 1;
+        std::cout << ex.what() << std::endl;
+        return http::status::internal_server_error;
     }
-
-    //W.conn().disconnect();
-    return 0;
-
-    return 200;
+    return http::status::ok;
 }

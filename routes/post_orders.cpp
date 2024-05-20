@@ -4,30 +4,29 @@
 #include "All_routes.hpp"
 
 // int Order::id=0;
-int post_orders(std::string json_string, std::string configs)
+http::status post_orders(std::string json_string, std::string configs)
 {
-    connection C(configs);
-    work W(C);
-    nlohmann::json arr = nlohmann::json::parse(json_string);
     std::vector<Order> vec;
-    for (auto it = arr.begin(); it != arr.end(); it++)
-    {
-        int w = (*it)["weight"];
-        int d = (*it)["district"];
-        std::string t = (*it)["time"];
-        vec.push_back(Order(w, d, t));
-    }
-    std::cout << "Working post orders" << std::endl;
+    nlohmann::json arr;
     try
     {
-        if (W.conn().is_open())
+        arr = nlohmann::json::parse(json_string);
+    }
+    catch (std::exception &ex)
+    {
+        std::cout << ex.what() << std::endl;
+        return http::status::unprocessable_entity;
+    }
+    try
+    {
+        connection C(configs);
+        work W(C);
+        for (auto it = arr.begin(); it != arr.end(); it++)
         {
-            std::cout << "Opened database successfully: " << W.conn().dbname() << std::endl;
-        }
-        else
-        {
-            std::cout << "Can't open database" << std::endl;
-            return 1;
+            int w = (*it)["weight"];
+            int d = (*it)["district"];
+            std::string t = (*it)["time"];
+            vec.push_back(Order(w, d, t));
         }
         for (auto x : vec)
         {
@@ -42,26 +41,18 @@ int post_orders(std::string json_string, std::string configs)
             query.replace(start, 15, x.time);
 
             std::cout << query << std::endl;
-            try
-            {
-                W.exec(query);
-                std::cout << "you`ve succefully added new note\n";
-            }
-            catch (const std::exception &exc)
-            {
-                std::cerr << exc.what() << std::endl;
-                return 1;
-            }
+            W.exec(query);
+            std::cout << "you`ve succefully added new note\n";
         }
         W.commit();
     }
     catch (const std::exception &e)
     {
         std::cerr << e.what() << std::endl;
-        return 1;
+        return http::status::internal_server_error;
     }
 
-  //  W.conn().disconnect();
-    return 0;
+    //  W.conn().disconnect();
+    return http::status::ok;
 }
 #endif

@@ -5,6 +5,7 @@
 #include<order/order.hpp>
 #include<vector>
 #include <nlohmann/json.hpp>
+#include<boost/beast.hpp>
 
 #include <fstream>
 #include<string_view>
@@ -13,17 +14,28 @@
 #include <pqxx/pqxx> 
 using namespace pqxx;
 
+using json = nlohmann::json;
+namespace beast = boost::beast;
+namespace http = beast::http;
+namespace net = boost::asio;
+using net::ip::tcp;
+using namespace std::string_literals;
 
-int post_couriers(std::string json_string, std::string configs);
-int post_orders(std::string json_string, std::string configs);
-int post_orders_complete(std::string json_string, std::string configs);
+json Order_to_Json(const Order& ord);
+
+json Courier_to_Json(const Courier& c);
 
 
-Courier get_couriers_id(std::string_view  url, std::string configs);
-std::vector<Courier> get_couriers(std::string_view  url, std::string configs);
+http::status post_couriers(std::string json_string, std::string configs);
+http::status post_orders(std::string json_string, std::string configs);
+http::status post_orders_complete(std::string json_string, std::string configs);
 
-Order get_orders_id(std::string_view  url, std::string configs);
-std::vector<Order> get_orders(std::string_view url, std::string configs);
+
+std::pair<http::status,json> get_couriers_id(std::string_view  url, std::string configs);
+std::pair<http::status,json> get_couriers(std::string_view  url, std::string configs);
+
+std::pair<http::status,json> get_orders_id(std::string_view  url, std::string configs);
+std::pair<http::status,json> get_orders(std::string_view url, std::string configs);
 
 
 

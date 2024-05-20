@@ -1,25 +1,21 @@
 #include "All_routes.hpp"
 
-int post_orders_complete(std::string json_string, std::string configs)
+http::status post_orders_complete(std::string json_string, std::string configs)
 {
-    connection C(configs);
-    work W(C);
-    nlohmann::json arr = nlohmann::json::parse(json_string);
-    std::vector<int> ids = arr.get<std::vector<int>>();
+    std::vector<int> ids;
     try
     {
-        if (W.conn().is_open())
-        {
-            std::cout << "Opened database successfully: " << W.conn().dbname() << std::endl;
-        }
-        else
-        {
-            std::cout << "Can't open database" << std::endl;
-            return 1;
-        }
-        // std::string query = "UPDATE \"order\" SET isready=true WHERE id = 1;";
-        // W.exec(query);
-
+        nlohmann::json arr = nlohmann::json::parse(json_string);
+        ids = arr.get<std::vector<int>>();
+    }
+    catch(std::exception& ex){
+        std::cout<<ex.what()<<std::endl;
+        return http::status::unprocessable_entity;
+    }
+    try
+    {
+        connection C(configs);
+        work W(C);
         for (int x : ids)
         {
             std::cout << x << std::endl;
@@ -33,10 +29,10 @@ int post_orders_complete(std::string json_string, std::string configs)
     }
     catch (const std::exception &e)
     {
-        std::cerr << e.what() << std::endl;
-        return 1;
+        std::cout << e.what() << std::endl;
+        return http::status::internal_server_error;
     }
 
-   // W.conn().disconnect();
-    return 0;
+    // W.conn().disconnect();
+    return http::status::ok;
 }

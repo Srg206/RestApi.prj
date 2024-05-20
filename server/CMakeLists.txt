@@ -9,9 +9,8 @@ target_include_directories(server PUBLIC
 
 find_package(PkgConfig)
 pkg_search_module(PQXX REQUIRED libpqxx)
-find_package(Boost REQUIRED COMPONENTS system filesystem)
 
 
 include_directories(${Boost_INCLUDE_DIRS})
-target_link_libraries(server All_routes ${PQXX_LINK_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(server All_routes ${PQXX_LINK_LIBRARIES})
 #target_link_libraries(serverlib PRIVATE server ${PQXX_LINK_LIBRARIES} )
