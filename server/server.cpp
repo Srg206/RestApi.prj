@@ -26,7 +26,7 @@ Server::Server()
         file >> url_todb >> ip >> port_num;
         // endpnt.address(boost::asio::ip::address::from_string(ip));
         // endpnt.port(port_num);
-        endpnt = boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 8000);
+        endpnt = boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string(ip), port_num);
     }
     catch (std::exception &ex)
     {
@@ -95,7 +95,7 @@ void Server::handleRequest(boost::asio::ip::tcp::socket &socket, const http::req
         http::response<http::string_body> respn{status_code, 11};
         respn.set(http::field::server, "Boost Beast Server");
         respn.set(http::field::content_type, "text/html");
-        respn.body() = json(); // content;
+        respn.body() = ""; // content;
         respn.prepare_payload();
         http::write(socket, respn);
     }

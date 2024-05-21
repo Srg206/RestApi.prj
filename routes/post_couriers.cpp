@@ -4,6 +4,7 @@
 
 http::status post_couriers(std::string json_string, std::string configs)
 {
+    std::cout<<"post_couriers"<<std::endl;
     nlohmann::json arr;
     std::vector<Courier> vec;
     try

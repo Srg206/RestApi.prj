@@ -2,6 +2,8 @@
 
 std::pair<http::status, json> get_couriers(std::string_view url, std::string configs)
 {
+
+    std::cout<<"\nCalled get_couriers"<<std::endl;
     json res_json = json::array();
     try
     {
