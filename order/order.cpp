@@ -35,3 +35,8 @@ Order::Order(int id, int w, int d, std::string t) : my_id(id), weight(w), distri
 {
     my_id=id++;
 }
+
+Order::Order(int id, int w, int d, std::string t, bool ir):
+my_id(id), weight(w), district(d), time(t), IsReady(ir)
+{
+}

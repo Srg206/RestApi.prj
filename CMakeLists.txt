@@ -34,6 +34,7 @@ add_subdirectory(server)
 add_subdirectory(courier)
 add_subdirectory(order)
 add_subdirectory(routes)
+add_subdirectory(tests)
 
 
 

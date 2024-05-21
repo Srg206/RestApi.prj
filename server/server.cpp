@@ -54,7 +54,7 @@ void Server::handleRequest(boost::asio::ip::tcp::socket &socket, const http::req
         if (url.find("couriers/") != -1)
         {
             content_status = get_couriers_id(url, get_configs());
-            // std::cout << url.data() << std::endl;
+            std::cout << "1" << std::endl;
         }
         else if (url.find("orders/") != -1)
         {
@@ -71,7 +71,8 @@ void Server::handleRequest(boost::asio::ip::tcp::socket &socket, const http::req
         http::response<http::string_body> respn{content_status.first, 11};
         respn.set(http::field::server, "Boost Beast Server");
         respn.set(http::field::content_type, "text/html");
-        respn.body() = content_status.second; // content;
+        respn.body() = content_status.second.dump(); // content;
+        std::cout << content_status.second.dump()<< "  "<< content_status.first << std::endl;
         respn.prepare_payload();
         http::write(socket, respn);
     }
