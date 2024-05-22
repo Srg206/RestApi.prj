@@ -24,5 +24,5 @@ TEST_CASE("Routes/utils")
 TEST_CASE("API")
 {
     system("python3 ../../../tests/api_tests.py");
-    std::cout<<"sndvbhfbvhfb"<<std::endl;
 }
+
