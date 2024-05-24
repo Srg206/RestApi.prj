@@ -3,6 +3,9 @@
 #include <server/server.hpp>
 #include <cstdlib>
 #include <boost/asio.hpp>
+#include <iostream>
+#include <filesystem>
+
 
 TEST_CASE("Routes/utils")
 {
@@ -23,6 +26,13 @@ TEST_CASE("Routes/utils")
 }
 TEST_CASE("API")
 {
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    std::cout << "Current Path: " << currentPath << std::endl;
+#if defined(_WIN32) || defined(_WIN64)
+    system("python3 ../../../../tests/api_tests.py");
+#elif
     system("python3 ../../../tests/api_tests.py");
+#endif
+    system("pause");
 }
-
+//"C:\\VsProjects\\1\\RestApi.prj\\build\\tests"

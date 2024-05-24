@@ -8,9 +8,14 @@ std::string ReplaceAll(const std::string &inputStr, const std::string &src, cons
 
 std::string get_configs()
 {
-    std::ifstream f("../../env.txt");
+#if defined(_WIN32) || defined(_WIN64)
+    std::string path_to_configs = ("../../../env.txt");
+#elif
+    std::string path_to_configs = ("../../env.txt");
+#endif
+    std::ifstream file(path_to_configs);
     std::string configs;
-    f >> configs;
+    file >> configs;
     std::cout << configs;
     return configs;
 }
@@ -18,12 +23,20 @@ Server::Server()
 {
     try
     {
+#if defined(_WIN32) || defined(_WIN64)
+        std::string path_to_configs = ("../../../env.txt");
+#elif
         std::string path_to_configs = ("../../env.txt");
+#endif
+        //std::string path_to_configs = ("../env.txt");
+        std::filesystem::path currentPath = std::filesystem::current_path();
+        std::cout << "Current Path: " << currentPath << std::endl;
         std::ifstream file(path_to_configs);
         std::string ip;
         int port_num;
         std::string url_todb;
         file >> url_todb >> ip >> port_num;
+        std::cout << ip << port_num << std::endl;
         // endpnt.address(boost::asio::ip::address::from_string(ip));
         // endpnt.port(port_num);
         endpnt = boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string(ip), port_num);
@@ -99,6 +112,7 @@ void Server::handleRequest(boost::asio::ip::tcp::socket &socket, const http::req
         respn.prepare_payload();
         http::write(socket, respn);
     }
+    std::cout << "End of handling request" << std::endl;
 }
 void Server::handleConnection(boost::asio::ip::tcp::socket &socket)
 {
