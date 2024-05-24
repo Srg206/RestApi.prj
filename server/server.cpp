@@ -10,7 +10,7 @@ std::string get_configs()
 {
 #if defined(_WIN32) || defined(_WIN64)
     std::string path_to_configs = ("../../../env.txt");
-#elif
+#else
     std::string path_to_configs = ("../../env.txt");
 #endif
     std::ifstream file(path_to_configs);
@@ -25,7 +25,7 @@ Server::Server()
     {
 #if defined(_WIN32) || defined(_WIN64)
         std::string path_to_configs = ("../../../env.txt");
-#elif
+#else
         std::string path_to_configs = ("../../env.txt");
 #endif
         //std::string path_to_configs = ("../env.txt");

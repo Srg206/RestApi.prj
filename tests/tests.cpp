@@ -30,7 +30,7 @@ TEST_CASE("API")
     std::cout << "Current Path: " << currentPath << std::endl;
 #if defined(_WIN32) || defined(_WIN64)
     system("python3 ../../../../tests/api_tests.py");
-#elif
+#else
     system("python3 ../../../tests/api_tests.py");
 #endif
     system("pause");
