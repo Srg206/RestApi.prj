@@ -25,7 +25,7 @@ RUN apt-get install -y libboost-dev
 RUN apt-get install -y cmake
 RUN apt-get install sudo -y
 RUN sudo apt-get install nlohmann-json3-dev
-
+RUN sudo apt-get install -y libpqxx-dev
 
 
 
