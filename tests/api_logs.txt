@@ -1,8 +1,8 @@
 
-post/orders---- 200
-get/orders---- 200
-get/orders/id---- 200
-post/orders/complete---- 200
-post/couriers---- 200
-get/couriers---- 200
-get/couriers/id---- 200
+post/orders---- 500
+get/orders---- 404
+get/orders/id---- 404
+post/orders/complete---- 500
+post/couriers---- 500
+get/couriers---- 404
+get/couriers/id---- 404

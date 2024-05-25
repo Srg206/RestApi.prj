@@ -2,12 +2,13 @@ CREATE TABLE IF NOT EXISTS "order" (
 id SERIAL PRIMARY KEY,
 weight INTEGER NOT NULL,
 district INTEGER NOT NULL,
+isready boolean DEFAULT 0,
 time TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS "courier" (
 id SERIAL PRIMARY KEY,
 district INTEGER NOT NULL,
-time text NOT NULL
+time text NOT NULL,
 type text NOT NULL
 );

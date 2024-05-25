@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   postgres:
-    container_name: postgres-container111
+    container_name: postgres-container
     image: postgres:16.2
     restart: unless-stopped
     env_file:
@@ -10,7 +10,6 @@ services:
         TZ: 'GMT+3'
         PGTZ: 'GMT+3'
     volumes:
-      - postgres-data:/var/lib/postgresql/data
       - ./postgres-init-db/:/docker-entrypoint-initdb.d
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
