@@ -1,4 +1,4 @@
-libboost-dev libboost-program-options-dev
-libgtest-dev
+Boost
 cmake
-nlohmann-json-dev
+nlohmann-json3
+libpqxx

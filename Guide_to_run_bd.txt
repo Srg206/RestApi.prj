@@ -1,0 +1,45 @@
+Windows:
+1 Способ: без docker:
+установите postgresql на ваш компьютер
+https://docs.rkeeper.ru/rk7/7.7.0/ru/ustanovka-postgresql-na-windows-29421153.html
+создайте с помощью любого клиента базу данных {db name} и в ней создайте 2 таблицы(courier, order)
+
+courier:
+CREATE TABLE IF NOT EXISTS "courier" (
+id SERIAL PRIMARY KEY,
+district INTEGER NOT NULL,
+time text NOT NULL,
+type text NOT NULL
+);
+
+order:
+CREATE TABLE IF NOT EXISTS "order" (
+id SERIAL PRIMARY KEY,
+weight INTEGER NOT NULL,
+district INTEGER NOT NULL,
+isready boolean DEFAULT 0,
+time TEXT NOT NULL
+);
+
+2 Способ: с помощью docker:
+1)создайте файл .env
+2)скопируйте .env.template и вставьте нужные занчения:
+POSTGRES_HOST={db ip}
+POSTGRES_PORT={db port}
+POSTGRES_DB={db name}
+POSTGRES_PASSWORD={password}
+POSTGRES_USER={user}
+
+из корневой папки проекта выполните команду docker compose up -d
+
+в файл env.txt пропишите значения:
+{user}- имя пользователя базы данных
+{password}- пароль для базы данных
+{db ip}- ip адресс базы данных
+{db port}- port на котором работает база данных
+{db name}- название базы данных
+{server ip}- ip адресс сервера
+{server port}- port на котром работает сервер
+
+
+
